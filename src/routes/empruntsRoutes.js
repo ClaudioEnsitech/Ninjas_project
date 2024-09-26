@@ -55,7 +55,7 @@ router.get('/', getEmprunts);
 
 /**
  * @swagger
- * /emprunts/{id}:
+ * /api/v1/emprunts/{id}:
  *   get:
  *     summary: Obtenir un emprunt par son ID
  *     tags: [Emprunts]
@@ -127,16 +127,16 @@ router.get('/:id', getEmpruntsById);
  *     responses:
  *       201:
  *         description: Emprunt créé avec succès
- *       400:
+ *       404:
  *         description: Données invalides
  *       500:
- *         description: Erreur interne
+ *         description: Erreur lors de la création de l'emprunt
  */
 router.post('/', createEmprunt);
 
 /**
  * @swagger
- * /emprunts/{id}:
+ * /api/v1/emprunts/{id}:
  *   put:
  *     summary: Mettre à jour un emprunt
  *     tags: [Emprunts]
@@ -171,8 +171,8 @@ router.post('/', createEmprunt);
  *     responses:
  *       200:
  *         description: Emprunt mis à jour avec succès
- *       400:
- *         description: Données invalides
+ *       404:
+ *         description: Emprunt non trouvé
  *       500:
  *         description: Erreur interne
  */
@@ -180,7 +180,7 @@ router.put('/:id', updateEmprunt);
 
 /**
  * @swagger
- * /emprunts/{id}:
+ * /api/v1/emprunts/{id}:
  *   delete:
  *     summary: Supprimer un emprunt
  *     tags: [Emprunts]

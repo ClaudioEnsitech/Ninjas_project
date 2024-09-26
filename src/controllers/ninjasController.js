@@ -16,11 +16,16 @@ async function getNinjasById(req, res) {
 }
 
 async function createNinja(req, res) {
-  const { db } = req.app.locals;
-  const newNinja = req.body;
-  const result = await ninjasCollection(db).insertOne(newNinja);
-  res.status(201).json(result.ops[0]);
+  try {
+    const { db } = req.app.locals;
+    const newNinja = req.body;
+    const result = await ninjasCollection(db).insertOne(newNinja);
+    res.status(200).json({ id: result.insertedId, ...newNinja });
+  } catch (err) {
+    res.status(500).send('Erreur lors de la création du ninja');
+  }
 }
+
 
 async function updateNinja(req, res) {
   const { db } = req.app.locals;

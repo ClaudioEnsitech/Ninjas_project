@@ -16,10 +16,14 @@ async function getEmpruntsById(req, res) {
 }
 
 async function createEmprunt(req, res) {
-  const { db } = req.app.locals;
-  const newEmprunt = req.body;
-  const result = await empruntsCollection(db).insertOne(newEmprunt);
-  res.status(201).json(result.ops[0]);
+  try {
+    const { db } = req.app.locals;
+    const newEmprunt = req.body;
+    const result = await empruntsCollection(db).insertOne(newEmprunt);
+    res.status(200).json({ id: result.insertedId, ...newEmprunt });
+  } catch (err) {
+    res.status(500).send('Erreur lors de la création de l\'emprunt');
+  }
 }
 
 async function updateEmprunt(req, res) {

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const connectToMongo = require('./config/database');
 const errorHandler = require('./middleware/errorHandler');
 const jutsuScrollRoutes = require('./routes/jutsuScrollRoutes');
@@ -16,7 +17,7 @@ const swaggerOptions = {
       info: {
         title: 'API Ninja Library',
         version: '1.0.0',
-        description: 'Documentation de l\'API pour gérer une bibliothèque de jutsu',
+        description: 'Documentation de l\'API pour gérer une bibliothèque de jutsu, tout le CRUD peut être éxécuté ici. S\'il y a modification, il faut relancer le serveur avec "npm start" et la databse sera à jour.',
       },
       servers: [
         {
@@ -30,6 +31,7 @@ const swaggerOptions = {
   const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use(express.json());
+app.use(cors());
 
 connectToMongo().then(db => {
   app.locals.db = db;

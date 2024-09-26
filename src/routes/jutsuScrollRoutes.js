@@ -57,7 +57,7 @@ router.get('/', getJutsuScrolls);
 
 /**
  * @swagger
- * /jutsuScrolls/{id}:
+ * /api/v1/jutsuScrolls/{id}:
  *   get:
  *     summary: Obtenir un rouleau de jutsu par son ID
  *     tags: [JutsuScrolls]
@@ -103,7 +103,7 @@ router.get('/:id', getJutsuScrollById);
 
 /**
  * @swagger
- * /jutsuScrolls:
+ * /api/v1/jutsuScrolls:
  *   post:
  *     summary: Créer un rouleau de jutsu
  *     tags: [JutsuScrolls]
@@ -133,7 +133,7 @@ router.get('/:id', getJutsuScrollById);
  *     responses:
  *       201:
  *         description: Rouleau de jutsu créé avec succès
- *       400:
+ *       404:
  *         description: Données invalides
  *       500:
  *         description: Erreur interne
@@ -142,7 +142,7 @@ router.post('/', createJutsuScroll);
 
 /**
  * @swagger
- * /jutsuScrolls/{id}:
+ * /api/v1/jutsuScrolls/{id}:
  *   put:
  *     summary: Mettre à jour un rouleau de jutsu
  *     tags: [JutsuScrolls]
@@ -179,8 +179,8 @@ router.post('/', createJutsuScroll);
  *     responses:
  *       200:
  *         description: Rouleau de jutsu mis à jour avec succès
- *       400:
- *         description: Données invalides
+ *       404:
+ *         description: Rouleau de jutsu non trouvé
  *       500:
  *         description: Erreur interne
  */
@@ -188,7 +188,7 @@ router.put('/:id', updateJutsuScroll);
 
 /**
  * @swagger
- * /jutsuScrolls/{id}:
+ * /api/v1/jutsuScrolls/{id}:
  *   delete:
  *     summary: Supprimer un rouleau de jutsu
  *     tags: [JutsuScrolls]

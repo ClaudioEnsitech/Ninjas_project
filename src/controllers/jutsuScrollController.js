@@ -15,11 +15,16 @@ async function getJutsuScrollById(req, res) {
 }
 
 async function createJutsuScroll(req, res) {
-  const { db } = req.app.locals;
-  const newScroll = req.body;
-  const result = await jutsuScrollsCollection(db).insertOne(newScroll);
-  res.status(201).json(result.ops[0]);
+  try {
+    const { db } = req.app.locals;
+    const newScroll = req.body;
+    const result = await jutsuScrollsCollection(db).insertOne(newScroll);
+    res.status(200).json({ id: result.insertedId, ...newScroll });
+  } catch (err) {
+    res.status(500).send('Erreur lors de la création du JutsuScroll');
+  }
 }
+
 
 async function updateJutsuScroll(req, res) {
   const { db } = req.app.locals;

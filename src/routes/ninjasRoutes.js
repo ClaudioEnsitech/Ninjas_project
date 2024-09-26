@@ -48,7 +48,7 @@ router.get('/', getNinjas);
 
 /**
  * @swagger
- * /ninjas/{id}:
+ * /api/v1/ninjas/{id}:
  *   get:
  *     summary: Obtenir un ninja par son ID
  *     tags: [Ninjas]
@@ -90,7 +90,7 @@ router.get('/:id', getNinjasById);
 
 /**
  * @swagger
- * /ninjas:
+ * /api/v1/ninjas:
  *   post:
  *     summary: Créer un nouveau ninja
  *     tags: [Ninjas]
@@ -114,18 +114,18 @@ router.get('/:id', getNinjasById);
  *               spécialité:
  *                 type: string
  *     responses:
- *       201:
+ *       200:
  *         description: Ninja créé avec succès
- *       400:
+ *       404:
  *         description: Données invalides
  *       500:
- *         description: Erreur interne
+ *         description: Erreur lors de la création du ninja
  */
 router.post('/', createNinja);
 
 /**
  * @swagger
- * /ninjas/{id}:
+ * /api/v1/ninjas/{id}:
  *   put:
  *     summary: Mettre à jour un ninja
  *     tags: [Ninjas]
@@ -158,8 +158,8 @@ router.post('/', createNinja);
  *     responses:
  *       200:
  *         description: Ninja mis à jour avec succès
- *       400:
- *         description: Données invalides
+ *       404:
+ *         description: Ninja non trouvé
  *       500:
  *         description: Erreur interne
  */
@@ -167,7 +167,7 @@ router.put('/:id', updateNinja);
 
 /**
  * @swagger
- * /ninjas/{id}:
+ * /api/v1/ninjas/{id}:
  *   delete:
  *     summary: Supprimer un ninja
  *     tags: [Ninjas]
