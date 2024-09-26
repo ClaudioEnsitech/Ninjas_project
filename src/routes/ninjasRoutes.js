@@ -3,14 +3,6 @@ const { getNinjas, getNinjasById, createNinja, updateNinja, deleteNinja } = requ
 
 const router = express.Router();
 
-router.get('/', getNinjas);
-router.get('/:id', getNinjasById);
-router.post('/', createNinja);
-router.put('/:id', updateNinja);
-router.delete('/:id', deleteNinja);
-
-module.exports = router;
-
 /**
  * @swagger
  * tags:
@@ -20,7 +12,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /ninjas:
+ * /api/v1/ninjas:
  *   get:
  *     summary: Obtenir tous les ninjas
  *     tags: [Ninjas]
@@ -40,6 +32,15 @@ module.exports = router;
  *                     type: string
  *                   rank:
  *                     type: string
+ *                   jutsus_maîtrisés:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                   clan:
+ *                     type: string
+ * 
+ *                   spécialité:
+ *                     type: string
  *       500:
  *         description: Erreur interne
  */
@@ -47,9 +48,51 @@ router.get('/', getNinjas);
 
 /**
  * @swagger
+ * /ninjas/{id}:
+ *   get:
+ *     summary: Obtenir un ninja par son ID
+ *     tags: [Ninjas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID du ninja
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Informations sur le ninja
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 rank:
+ *                   type: string
+ *                 jutsus_maîtrisés:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                 clan:
+ *                   type: string
+ *                 spécialité:
+ *                   type: string
+ *       404:
+ *         description: Ninja non trouvé
+ *       500:
+ *         description: Erreur interne
+ */
+router.get('/:id', getNinjasById);
+
+/**
+ * @swagger
  * /ninjas:
  *   post:
- *     summary: Créer un ninja
+ *     summary: Créer un nouveau ninja
  *     tags: [Ninjas]
  *     requestBody:
  *       required: true
@@ -62,10 +105,87 @@ router.get('/', getNinjas);
  *                 type: string
  *               rank:
  *                 type: string
+ *               jutsus_maîtrisés:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               clan:
+ *                 type: string
+ *               spécialité:
+ *                 type: string
  *     responses:
  *       201:
- *         description: Ninja créé
+ *         description: Ninja créé avec succès
+ *       400:
+ *         description: Données invalides
  *       500:
  *         description: Erreur interne
  */
 router.post('/', createNinja);
+
+/**
+ * @swagger
+ * /ninjas/{id}:
+ *   put:
+ *     summary: Mettre à jour un ninja
+ *     tags: [Ninjas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID du ninja
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               rank:
+ *                 type: string
+ *               jutsus_maîtrisés:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               clan:
+ *                 type: string
+ *               spécialité:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Ninja mis à jour avec succès
+ *       400:
+ *         description: Données invalides
+ *       500:
+ *         description: Erreur interne
+ */
+router.put('/:id', updateNinja);
+
+/**
+ * @swagger
+ * /ninjas/{id}:
+ *   delete:
+ *     summary: Supprimer un ninja
+ *     tags: [Ninjas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID du ninja
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Ninja supprimé avec succès
+ *       404:
+ *         description: Ninja non trouvé
+ *       500:
+ *         description: Erreur interne
+ */
+router.delete('/:id', deleteNinja);
+
+module.exports = router;
