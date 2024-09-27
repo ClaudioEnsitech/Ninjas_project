@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const mongoSanitize = require('express-mongo-sanitize');
+const rateLimit = require('express-rate-limit');
 const connectToMongo = require('./config/database');
 const errorHandler = require('./middleware/errorHandler');
 const jutsuScrollRoutes = require('./routes/jutsuScrollRoutes');
@@ -10,6 +12,11 @@ const swaggerJsDoc = require('swagger-jsdoc');
 
 const app = express();
 const port = 3000;
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200
+});
 
 const swaggerOptions = {
     swaggerDefinition: {
@@ -32,6 +39,8 @@ const swaggerOptions = {
 
 app.use(express.json());
 app.use(cors());
+app.use(mongoSanitize()); // Nettoie les requêtes
+app.use(limiter); // Limite de 200 requêtes par tranche de 15 min
 
 connectToMongo().then(db => {
   app.locals.db = db;

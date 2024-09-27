@@ -14,33 +14,80 @@ const router = express.Router();
  * @swagger
  * /api/v1/ninjas:
  *   get:
- *     summary: Obtenir tous les ninjas
- *     tags: [Ninjas]
+ *     summary: Obtenir tous les ninjas avec pagination, filtrage, et tri
+ *     tags: 
+ *       - Ninjas
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Le numéro de page pour la pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Le nombre de ninjas par page
+ *       - in: query
+ *         name: rank
+ *         schema:
+ *           type: string
+ *         description: |
+ *           Filtrer par rang de ninja.
+ *           Par exemple: Genin, Jonin, Kage.
+ *       - in: query
+ *         name: clan
+ *         schema:
+ *           type: string
+ *         description: |
+ *           Filtrer par clan.
+ *           Par exemple: Uzumaki, Senju.
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           example: rank:asc
+ *         description: |
+ *           Trier les résultats.
+ *           Par exemple: name:asc, rank:desc.
  *     responses:
  *       200:
- *         description: Liste des ninjas
+ *         description: Liste paginée des ninjas
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   name:
- *                     type: string
- *                   rank:
- *                     type: string
- *                   jutsus_maîtrisés:
- *                     type: array
- *                     items:
- *                       type: string
- *                   clan:
- *                     type: string
- * 
- *                   spécialité:
- *                     type: string
+ *               type: object
+ *               properties:
+ *                 ninjas:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       name:
+ *                         type: string
+ *                       rank:
+ *                         type: string
+ *                       jutsus_maîtrisés:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                       clan:
+ *                         type: string
+ *                       spécialité:
+ *                         type: string
+ *                 total:
+ *                   type: integer
+ *                   description: Nombre total de ninjas
+ *                 page:
+ *                   type: integer
+ *                   description: Page actuelle
+ *                 totalPages:
+ *                   type: integer
+ *                   description: Nombre total de pages
  *       500:
  *         description: Erreur interne
  */
@@ -114,7 +161,7 @@ router.get('/:id', getNinjasById);
  *               spécialité:
  *                 type: string
  *     responses:
- *       200:
+ *       201:
  *         description: Ninja créé avec succès
  *       404:
  *         description: Données invalides
