@@ -9,7 +9,7 @@ Ce projet est une API CRUD permettant de gérer les **ninjas**, les **emprunts**
 - **CRUD des emprunts** : Gestion des emprunts des rouleaux par les ninjas.
 - **Sécurité** : Mise en place de plusieurs mesures de sécurité (validation des entrées, gestion des erreurs, protection contre les injections NoSQL, etc.).
 - **Documentation API** : Utilisation de Swagger pour générer la documentation à l'adresse [http://localhost:3000/api-docs](http://localhost:3000/api-docs).
-- **Pagination, tri et filtrage** : Support pour paginer, trier et filtrer les résultats dans les requêtes GET.
+- **Pagination, tri et filtrage** : Support pour paginer, trier et filtrer les résultats dans les requêtes GET (pour les ninjas).
 - **Système de gestion d'erreurs** : Toutes les erreurs sont gérées globalement dans le middleware `errorHandler`.
 - **Système de versioning** : L'API est versionnée (v1), permettant une extension future vers une v2 sans affecter l'existant.
 
@@ -131,7 +131,7 @@ Voici quelques suggestions pour tester l'API :
 
 3. **Créer un emprunt** : Emprunter un rouleau pour un ninja. 
 
-4. **Consulter la documentation** : Ouvrir [http://localhost:3000/api\-docs](http://localhost:3000/api-docs) pour visualiser et tester l'API via Swagger.”
+4. **Consulter la documentation** : Ouvrir [http://localhost:3000/api\-docs](http://localhost:3000/api-docs) pour visualiser et tester l'API via Swagger.
 
 \
 \

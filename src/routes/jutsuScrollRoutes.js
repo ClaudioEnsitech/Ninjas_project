@@ -20,39 +20,87 @@ const router = express.Router();
  * @swagger
  * /api/v1/jutsuScrolls:
  *   get:
- *     summary: Obtenir tous les rouleaux de jutsu
+ *     summary: Obtenir tous les rouleaux de jutsu avec pagination, filtrage, et tri
  *     tags: [JutsuScrolls]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Le numéro de page pour la pagination
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Le nombre de rouleaux par page
+ *       - in: query
+ *         name: rang
+ *         schema:
+ *           type: string
+ *         description: |
+ *           Filtrer par rang du jutsu.
+ *           Par exemple: A, S.
+ *       - in: query
+ *         name: catégorie
+ *         schema:
+ *           type: string
+ *         description: |
+ *           Filtrer par catégorie.
+ *           Par exemple: Ninjutsu, Genjutsu.
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           example: nom:asc
+ *         description: |
+ *           Trier les résultats.
+ *           Par exemple: nom:asc, rang:desc.
  *     responses:
  *       200:
- *         description: Liste des rouleaux de jutsu
+ *         description: Liste paginée des rouleaux de jutsu
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   nom:
- *                     type: string
- *                   créateur:
- *                     type: string
- *                   rang:
- *                     type: string
- *                   quantité:
- *                     type: integer
- *                   description:
- *                     type: string
- *                   catégorie:
- *                     type: string
- *                   techniques_associées:
- *                     type: array
- *                     items:
- *                       type: string
+ *               type: object
+ *               properties:
+ *                 jutsuScrolls:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       nom:
+ *                         type: string
+ *                       créateur:
+ *                         type: string
+ *                       rang:
+ *                         type: string
+ *                       quantité:
+ *                         type: integer
+ *                       description:
+ *                         type: string
+ *                       catégorie:
+ *                         type: string
+ *                       techniques_associées:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                 total:
+ *                   type: integer
+ *                   description: Nombre total de rouleaux de jutsu
+ *                 page:
+ *                   type: integer
+ *                   description: Page actuelle
+ *                 totalPages:
+ *                   type: integer
+ *                   description: Nombre total de pages
  *       500:
  *         description: Erreur interne
  */
+
 router.get('/', getJutsuScrolls);
 
 /**
